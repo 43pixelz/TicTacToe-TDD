@@ -18,4 +18,17 @@ class MakeMoveUseCaseTest {
         assertEquals(Player.X, state.board[0].player)
     }
 
+    @Test
+    fun `player switches after move`() {
+        val repo = FakeGameRepository()
+        val useCase = MakeMoveUseCase(repo)
+
+        useCase(0)
+
+        val state = repo.gameState.value
+
+        assertEquals(Player.O, state.currentPlayer)
+    }
+
+
 }

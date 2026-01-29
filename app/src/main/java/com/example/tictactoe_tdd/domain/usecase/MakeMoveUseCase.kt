@@ -12,6 +12,11 @@ class MakeMoveUseCase @Inject constructor(
         val updatedBoard = state.board.toMutableList().apply {
             this[index] = this[index].copy(player = state.currentPlayer)
         }
-        repository.updateState(state.copy(board = updatedBoard))
+        repository.updateState(
+            state.copy(
+                board = updatedBoard,
+                currentPlayer = state.currentPlayer.opponent()
+            )
+        )
     }
 }
