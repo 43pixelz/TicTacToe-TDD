@@ -98,4 +98,28 @@ class MakeMoveUseCaseTest {
         assertEquals(Player.X, repo.gameState.value.currentPlayer)
     }
 
+    @Test
+    fun `moves are ignored after game over`() {
+        val repo = FakeGameRepository()
+        val rules = GameRules()
+        val useCase = MakeMoveUseCase(repo, rules)
+
+        repo.updateState(
+            GameState(
+                board = listOf(
+                    Cell(0), Cell(1, Player.X), Cell(2),
+                    Cell(3), Cell(4, Player.X), Cell(5),
+                    Cell(6), Cell(7, Player.X), Cell(8)
+                ),
+                currentPlayer = Player.X,
+                result = GameResult.Winner(Player.X)
+            )
+        )
+
+        useCase(0)
+
+        assertEquals(null, repo.gameState.value.board[0].player)
+    }
+
+
 }

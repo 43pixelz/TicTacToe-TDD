@@ -12,7 +12,7 @@ class MakeMoveUseCase @Inject constructor(
 ) {
     operator fun invoke(index: Int) {
         val state = repository.gameState.value
-        if (state.board[index].player != null) return
+        if (state.result !is GameResult.InProgress || state.board[index].player != null) return
 
         val updatedBoard = state.board.toMutableList().apply {
             this[index] = this[index].copy(player = state.currentPlayer)
@@ -21,7 +21,11 @@ class MakeMoveUseCase @Inject constructor(
         repository.updateState(
             state.copy(
                 board = updatedBoard,
-                currentPlayer = if (result is GameResult.InProgress) state.currentPlayer.opponent() else state.currentPlayer,
+                currentPlayer = if (result is GameResult.InProgress) {
+                    state.currentPlayer.opponent()
+                } else {
+                    state.currentPlayer
+                },
                 result = result
             )
         )
