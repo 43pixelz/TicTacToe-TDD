@@ -6,49 +6,83 @@ A simple **Tic-Tac-Toe** game built to demonstrate **Clean Architecture**, **TDD
 
 This application is designed to:
 
-- Demonstrate **Clean Architecture** boundaries
+- Demonstrate **Clean Architecture** with clear layer boundaries
 - Apply **TDD** correctly
-- Handle **compose** and **one-time UI effects**  (Snackbar) properly
+- Use a **single source of truth** for UI state
+- Handle **one-time UI effects** (Snackbar) safely
+- Follow **Compose best practices**
 - Keep domain logic **100% platform-independent**
 
-## ⚙️ Build, Environment, Tools Details
+## Architecture Overview
 
-IDE - Android Studio Otter 3
+The project follows **Clean Architecture** with unidirectional dependency flow:
 
-### Android SDK
+```
+Presentation [UI, viewmodel(Reducer + Effect)]
+↓
+Domain [Model, Usecase, Rules]
+↓
+Data [Repository (State Holder)]
+```
 
-| Config | Value |
-|------|------|
-| **Min SDK** | 30 |
-| **Target SDK** | 36 |
-| **Compile SDK** | 36 |
+---
+## 🧪 Testing Strategy (TDD)
+
+This project follows **strict Test-Driven Development**:
+
+> 🔴 Red → 🟢 Green → 🔁 Refactor  
+> **Only green commits are allowed**
+
+### Current Test Coverage
+
+- ✅ `GameRules` fully unit tested
+- JVM unit tests only (no Android dependency)
+
+### Tested Scenarios
+
+- Row win
+- Column win
+- Diagonal win
+- Draw state
+- In-progress game
+- Game movement
+- Game reset
+  
+---
+
+## 🚀 How to Install & Run
+
+### Prerequisites
+
+- Android Studio (latest stable)
+- JDK 17
+- Android SDK installed
 
 ---
 
-### Gradle
+### Steps
 
-| Tool | Version |
-|----|--------|
-| **Gradle Wrapper** | 9.1.0 |
-| **Android Gradle Plugin (AGP)** | 8.13.2 |
-| **Kotlin** | 2.2.0 |
+## 🚀 How to Run
 
-> Versions align with current stable Android Studio releases.
+```bash
+git clone <repository-url>
+```
+
+Open in Android Studio → Sync → Run ▶
+
 ---
-## 📁 Project Structure
-com.example.tictactoe_tdd
-│
-├── domain
-│ ├── model // GameState, Cell, Player, Result
-│ ├── rules // GameRules (pure business logic)
-│ └── usecase // MakeMoveUseCase
-│
-├── data
-│ └── repository // GameRepository (state holder)
-│
-├── presentation
-│ ├── ViewModel // Reducer + Effects
-│ ├── UI // Compose screen
-│ └── Effects // Snackbar events
-│
-└── di // Hilt modules
+
+## 🧪 Run Unit Tests
+
+```bash
+./gradlew test
+```
+
+or
+
+```bash
+./gradlew :app:testDebugUnitTest
+```
+
+
+
