@@ -37,4 +37,26 @@ class GameRepositoryImplTest {
         assertEquals(newState, state)
     }
 
+    @Test
+    fun `reset restores initial state`() = runTest {
+        val repository = GameRepositoryImpl()
+
+        val newState = GameState(
+            currentPlayer = Player.O,
+            board = List(9) { Cell(it) },
+            result = GameResult.InProgress
+        )
+
+        repository.updateState(
+            newState
+        )
+
+        repository.reset()
+
+        val state = repository.gameState.first()
+
+        assertEquals(GameState.newGame(), state)
+    }
+
+
 }

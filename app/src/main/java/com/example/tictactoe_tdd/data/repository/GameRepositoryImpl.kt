@@ -15,7 +15,7 @@ class GameRepositoryImpl @Inject constructor() : GameRepository {
     }
 
     override fun reset() {
-
+        _gameState.value = GameState.newGame()
     }
 
 }
