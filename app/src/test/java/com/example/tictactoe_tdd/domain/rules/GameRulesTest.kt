@@ -3,6 +3,7 @@ package com.example.tictactoe_tdd.domain.rules
 import com.example.tictactoe.domain.model.Cell
 import com.example.tictactoe.domain.model.GameResult
 import com.example.tictactoe.domain.model.Player
+import junit.framework.TestCase
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -28,6 +29,19 @@ class GameRulesTest {
         val result = rules.validate(board)
 
         assertEquals(GameResult.Winner(Player.X), result)
+    }
+
+    @Test
+    fun `column win should return winner O`() {
+        val board = listOf(
+            Cell(0, Player.O), Cell(1, null), Cell(2, null),
+            Cell(3, Player.O), Cell(4, null), Cell(5, null),
+            Cell(6, Player.O), Cell(7, null), Cell(8, null)
+        )
+
+        val result = rules.validate(board)
+
+        TestCase.assertEquals(GameResult.Winner(Player.O), result)
     }
 
 }
