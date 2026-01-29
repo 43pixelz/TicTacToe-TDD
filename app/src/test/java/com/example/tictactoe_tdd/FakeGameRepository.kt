@@ -14,4 +14,8 @@ class FakeGameRepository : GameRepository {
     override fun updateState(state: GameState) {
         _state.value = state
     }
+
+    override fun reset() {
+        _state.value = GameState.newGame()
+    }
 }
