@@ -9,6 +9,8 @@ class GameViewModel @Inject constructor(
     private val repository: GameRepository,
     private val makeMoveUseCase: MakeMoveUseCase
 ) : ViewModel() {
+    val uiState = repository.gameState
+
     fun onCellClick(index: Int) {
         makeMoveUseCase(index)
     }

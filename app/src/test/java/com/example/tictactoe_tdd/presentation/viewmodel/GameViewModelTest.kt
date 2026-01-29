@@ -1,6 +1,8 @@
 package com.example.tictactoe_tdd.presentation.viewmodel
 
+import app.cash.turbine.test
 import com.example.tictactoe_tdd.FakeGameRepository
+import com.example.tictactoe_tdd.domain.model.GameState
 import com.example.tictactoe_tdd.domain.usecase.MakeMoveUseCase
 import io.mockk.mockk
 import io.mockk.verify
@@ -11,6 +13,7 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -47,5 +50,14 @@ class GameViewModelTest {
             makeMoveUseCase.invoke(5)
         }
     }
+
+    @Test
+    fun `initial uiState is emitted from repository`() = runTest {
+        viewModel.uiState.test {
+            assertEquals(GameState.newGame(), awaitItem())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
 
 }
