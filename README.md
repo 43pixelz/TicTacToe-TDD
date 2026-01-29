@@ -34,3 +34,21 @@ IDE - Android Studio Otter 3
 | **Kotlin** | 2.2.0 |
 
 > Versions align with current stable Android Studio releases.
+---
+## 📁 Project Structure
+com.example.tictactoe_tdd
+│
+├── domain
+│ ├── model // GameState, Cell, Player, Result
+│ ├── rules // GameRules (pure business logic)
+│ └── usecase // MakeMoveUseCase
+│
+├── data
+│ └── repository // GameRepository (state holder)
+│
+├── presentation
+│ ├── ViewModel // Reducer + Effects
+│ ├── UI // Compose screen
+│ └── Effects // Snackbar events
+│
+└── di // Hilt modules
