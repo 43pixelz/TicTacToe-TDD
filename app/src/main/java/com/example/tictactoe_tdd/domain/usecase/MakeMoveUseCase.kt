@@ -1,5 +1,6 @@
 package com.example.tictactoe_tdd.domain.usecase
 
+import com.example.tictactoe.domain.model.GameResult
 import com.example.tictactoe_tdd.domain.repository.GameRepository
 import com.example.tictactoe_tdd.domain.rules.GameRules
 import jakarta.inject.Inject
@@ -20,7 +21,7 @@ class MakeMoveUseCase @Inject constructor(
         repository.updateState(
             state.copy(
                 board = updatedBoard,
-                currentPlayer = state.currentPlayer.opponent(),
+                currentPlayer = if (result is GameResult.InProgress) state.currentPlayer.opponent() else state.currentPlayer,
                 result = result
             )
         )
