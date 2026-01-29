@@ -93,4 +93,15 @@ class GameViewModelTest {
         }
     }
 
+    @Test
+    fun `onReset delegates to MakeMoveUseCase`() = runTest {
+        viewModel.onCellClick(5)
+        viewModel.reset()
+
+        verify(exactly = 1) {
+            makeMoveUseCase.invoke(5)
+        }
+        assertEquals(GameState.newGame(), viewModel.uiState.value)
+    }
+
 }

@@ -59,4 +59,9 @@ class GameViewModel @Inject constructor(
         makeMoveUseCase(index)
     }
 
+    fun reset() {
+        repository.reset()
+        lastResult = GameResult.InProgress
+    }
+
 }
