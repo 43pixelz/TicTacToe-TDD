@@ -57,5 +57,26 @@ class GameRulesTest {
         assertEquals(GameResult.Winner(Player.X), result)
     }
 
+    @Test
+    fun `full board without winner should be draw`() {
+        val board = listOf(
+            Cell(0, Player.X), Cell(1, Player.O), Cell(2, Player.X),
+            Cell(3, Player.X), Cell(4, Player.O), Cell(5, Player.O),
+            Cell(6, Player.O), Cell(7, Player.X), Cell(8, Player.X)
+        )
+
+        val result = rules.validate(board)
+
+        assertEquals(GameResult.Draw, result)
+    }
+
+    @Test
+    fun `incomplete board with no winner should be in progress`() {
+        val board = List(9) { Cell(it, null) }
+
+        val result = rules.validate(board)
+
+        assertEquals(GameResult.InProgress, result)
+    }
 
 }

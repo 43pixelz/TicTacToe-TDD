@@ -16,6 +16,6 @@ class GameRules {
             if (players.all { it == Player.X }) return GameResult.Winner(Player.X)
             if (players.all { it == Player.O }) return GameResult.Winner(Player.O)
         }
-        return GameResult.InProgress
+        return if (board.all { it.player != null }) GameResult.Draw else GameResult.InProgress
     }
 }
