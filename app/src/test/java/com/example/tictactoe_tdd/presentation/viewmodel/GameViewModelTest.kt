@@ -77,4 +77,20 @@ class GameViewModelTest {
         }
     }
 
+
+    @Test
+    fun `game draw emits snackbar effect`() = runTest {
+        viewModel.effects.test {
+
+            repository.updateState(
+                GameState.newGame().copy(result = GameResult.Draw)
+            )
+
+            assertEquals(
+                GameEffect.ShowSnackbar("Game Draw"),
+                awaitItem()
+            )
+        }
+    }
+
 }

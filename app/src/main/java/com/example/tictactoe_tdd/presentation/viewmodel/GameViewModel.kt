@@ -44,7 +44,9 @@ class GameViewModel @Inject constructor(
                                 )
                             )
                         }
-                        GameResult.Draw -> Unit
+                        GameResult.Draw -> {
+                            _effects.tryEmit(GameEffect.ShowSnackbar("Game Draw"))
+                        }
                         GameResult.InProgress -> Unit
                     }
                 }
