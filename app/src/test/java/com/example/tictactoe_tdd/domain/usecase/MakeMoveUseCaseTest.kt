@@ -30,5 +30,18 @@ class MakeMoveUseCaseTest {
         assertEquals(Player.O, state.currentPlayer)
     }
 
+    @Test
+    fun `move on occupied cell is ignored`() {
+        val repo = FakeGameRepository()
+        val useCase = MakeMoveUseCase(repo)
+
+        useCase(0)
+        useCase(0)
+
+        val state = repo.gameState.value
+        assertEquals(Player.X, state.board[0].player)
+        assertEquals(Player.O, state.currentPlayer)
+    }
+
 
 }

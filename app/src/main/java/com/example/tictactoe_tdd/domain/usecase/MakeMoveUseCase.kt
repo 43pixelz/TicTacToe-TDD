@@ -9,6 +9,8 @@ class MakeMoveUseCase @Inject constructor(
 ) {
     operator fun invoke(index: Int) {
         val state = repository.gameState.value
+        if (state.board[index].player != null) return
+
         val updatedBoard = state.board.toMutableList().apply {
             this[index] = this[index].copy(player = state.currentPlayer)
         }
