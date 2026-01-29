@@ -1,9 +1,12 @@
 package com.example.tictactoe_tdd.presentation.viewmodel
 
 import app.cash.turbine.test
+import com.example.tictactoe.domain.model.GameResult
+import com.example.tictactoe.domain.model.Player
 import com.example.tictactoe_tdd.FakeGameRepository
 import com.example.tictactoe_tdd.domain.model.GameState
 import com.example.tictactoe_tdd.domain.usecase.MakeMoveUseCase
+import com.example.tictactoe_tdd.presentation.effects.GameEffect
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
@@ -59,5 +62,19 @@ class GameViewModelTest {
         }
     }
 
+    @Test
+    fun `winner emits snackbar effect`() = runTest {
+        viewModel.effects.test {
+
+            repository.updateState(
+                GameState.newGame().copy(result = GameResult.Winner(Player.X))
+            )
+
+            assertEquals(
+                GameEffect.ShowSnackbar("Winner: X"),
+                awaitItem()
+            )
+        }
+    }
 
 }
