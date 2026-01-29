@@ -3,8 +3,9 @@ package com.example.tictactoe_tdd.domain.rules
 import com.example.tictactoe.domain.model.Cell
 import com.example.tictactoe.domain.model.GameResult
 import com.example.tictactoe.domain.model.Player
+import jakarta.inject.Inject
 
-class GameRules {
+class GameRules @Inject constructor() {
     fun validate(board: List<Cell>): GameResult {
         val winningCombinations = listOf(
             listOf(0,1,2), listOf(3,4,5), listOf(6,7,8),
