@@ -11,6 +11,7 @@ class GameRepositoryImpl @Inject constructor() : GameRepository {
     override val gameState = _gameState.asStateFlow()
 
     override fun updateState(state: GameState) {
+        _gameState.value = state
     }
 
     override fun reset() {
