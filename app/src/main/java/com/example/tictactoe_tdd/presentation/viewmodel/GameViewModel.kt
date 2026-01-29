@@ -7,6 +7,7 @@ import com.example.tictactoe_tdd.domain.model.GameState
 import com.example.tictactoe_tdd.domain.repository.GameRepository
 import com.example.tictactoe_tdd.domain.usecase.MakeMoveUseCase
 import com.example.tictactoe_tdd.presentation.effects.GameEffect
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class GameViewModel @Inject constructor(
     private val repository: GameRepository,
     private val makeMoveUseCase: MakeMoveUseCase
